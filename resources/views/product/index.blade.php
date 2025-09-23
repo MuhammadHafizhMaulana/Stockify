@@ -127,28 +127,10 @@
                             Category
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            SKU
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Purchase Price
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Selling Price
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Image
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Minimum Stock
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Current Stock
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Created at
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Updated at
@@ -171,23 +153,7 @@
                                 {{ $product->supplier->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $product->description }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $product->sku }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $product->description }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $product->purchase_price }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $product->selling_price }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                    style="height:100; width:100px;">
+                                {{ $product->category->name }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $product->minimum_stock }}
@@ -196,16 +162,12 @@
                                 {{ $product->current_stock }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $product->created_at->format('Y-m-d H:i') }}
-                            </td>
-                            <td class="px-6 py-4">
                                 {{ $product->updated_at->format('Y-m-d H:i') }}
                             </td>
                             <td class="px-6 py-4">
                                 {{-- Link ke halaman edit --}}
-                                <a href="{{ route('product.edit', $product->id) }}" class="button"> <button
-                                        type="button"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</button></a>
+                                <a href="{{ route('product.edit', $product->id) }}"
+                                    class="button text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
 
                                 {{-- Form delete --}}
                                 <form action="{{ route('product.destroy', $product->id) }}" method="POST"
@@ -213,8 +175,12 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
+                                        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
                                 </form>
+
+                                {{-- Link ke halaman detail --}}
+                                <a href="{{ route('product.show', $product->id) }}"
+                                    class="button text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
                             </td>
                         </tr>
                     @endforeach
