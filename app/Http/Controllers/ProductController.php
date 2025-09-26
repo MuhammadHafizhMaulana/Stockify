@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Services\ProductService;
 use App\Models\Category;
+use App\Models\ProductAttribute;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,8 @@ class ProductController extends Controller
         $products = Product::all();
         $suppliers = Supplier::all();
         $categories = Category::all();
-        return view('product.index', compact('products', 'suppliers', 'categories'));
+        $productAttributes = ProductAttribute::all();
+        return view('product.index', compact('products', 'suppliers', 'categories', 'productAttributes'));
     }
 
     /**

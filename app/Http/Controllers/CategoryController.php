@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Services\CategoryService;
+use App\Models\Supplier;
 
 class CategoryController extends Controller
 {
@@ -20,8 +22,10 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->categoryService->listCategory();
+        $products = Product::all();
+        $suppliers = Supplier::all();
         $title = 'Category';
-        return view('category.index', compact('categories', 'title'));
+        return view('category.index', compact('categories', 'title', 'products', 'suppliers' ));
     }
 
     /**

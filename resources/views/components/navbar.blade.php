@@ -21,8 +21,8 @@
                                 class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('supplier.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Supplier</a>
                             <a href="{{ route('stockTransaction.index') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('stockTransaction.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Transaction</a>
-                            <a href="{{ route('stockTransaction.index') }}"
-                                class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('stockTransaction.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
+                            <a href="{{ route('report.index') }}"
+                                class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('report.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
                         @endif
 
                         {{-- Link User: hanya untuk Manajer --}}
@@ -41,10 +41,10 @@
                                     </span>
                                 @endif
                             </a>
-                            <a href="{{ route('product.index') }}"
+                            <a href="{{ route('supplier.index') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('supplier.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Supplier</a>
-                            <a href="{{ route('product.index') }}"
-                                class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('supplier.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
+                            <a href="{{ route('report.index') }}"
+                                class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('report.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
 
                         @endif
 

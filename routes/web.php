@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductAttributeController;
+use App\Http\Controllers\ProductReportController;
 use App\Http\Controllers\StockTransactionController;
 
 Route::get('/', function () {
@@ -37,6 +38,26 @@ Route::middleware('auth')->group(function(){
     })->name('dashboard');
 
     Route::resource('product', ProductController::class);
+
+    Route::get('/report',[ ProductReportController::class, 'index'])->name('report.index');
+
+    Route::prefix('report/products')->name('report.products.')->group(function(){
+    Route::get('/', [ProductReportController::class, 'productsReport'])->name('index');
+    Route::get('/pdf', [ProductReportController::class, 'exportPdf'])->name('pdf');
+    Route::get('/excel', [ProductReportController::class, 'exportExcel'])->name('excel');
+    });
+
+
+    Route::prefix('report/product')->name('report.product.')->group(function () {
+    Route::get('/', [ProductReportController::class, 'productList'])->name('index');
+    Route::get('{product}', [ProductReportController::class, 'productReport'])->name('show');
+    Route::get('{product}/pdf', [ProductReportController::class, 'exportProductPdf'])->name('pdf');
+    Route::get('{product}/excel', [ProductReportController::class, 'exportProductExcel'])->name('excel');
+    });
+
+
+
+
     Route::resource('category', CategoryController::class);
     Route::resource('supplier', SupplierController::class);
     Route::resource('productAttribute', ProductAttributeController::class);

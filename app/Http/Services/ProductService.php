@@ -39,5 +39,21 @@ class ProductService
         return $this->productRepo->findById($id);
     }
 
+    public function getReport($startDate, $endDate){
+        return [
+            'details' => $this->productRepo->getProductMovement($startDate, $endDate),
+            'summary' => $this->productRepo->getSummary($startDate, $endDate),
+            'periode' => [$startDate, $endDate]
+        ];
+    }
+
+    public function getReportByProduct($productId, $start, $end){
+        return [
+            'details' => $this->productRepo->getProductMovementByProduct($productId,$start, $end),
+            'summary' => $this->productRepo->getSummaryByProduct($productId,$start, $end),
+            'periode' => [$start, $end]
+        ];
+    }
+
 
 }

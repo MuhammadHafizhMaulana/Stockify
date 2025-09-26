@@ -89,6 +89,9 @@
                             Product Name
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Supplier
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Type
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -99,9 +102,6 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Notes
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Created at
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -118,6 +118,10 @@
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $stockTransaction->product->supplier->name }}
+                            </th>
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $stockTransaction->type }}
                             </th>
                             <th scope="row"
@@ -131,10 +135,6 @@
                             <td class="px-6 py-4">
                                 {{ $stockTransaction->notes }}
                             </td>
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $stockTransaction->created_at->format('Y-m-d H:i') }}
-                            </th>
                             <td class="px-6 py-4">
 
                                 {{-- Link User: hanya untuk Staff --}}

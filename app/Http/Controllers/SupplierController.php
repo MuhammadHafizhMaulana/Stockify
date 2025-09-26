@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Services\CategoryService;
 use Illuminate\Http\Request;
 use App\Http\Services\SupplierService;
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Supplier;
 
 class SupplierController extends Controller
@@ -20,7 +22,9 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = $this->supplierService->listSupplier();
-        return view('supplier.index', compact('suppliers'));
+        $products = Product::all();
+        $categories = Category::all();
+        return view('supplier.index', compact('suppliers','products', 'categories'));
     }
 
     /**
