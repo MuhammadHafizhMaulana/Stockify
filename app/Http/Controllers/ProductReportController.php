@@ -126,12 +126,13 @@ class ProductReportController extends Controller
         $end   = $request->input('end_date', now()->endOfMonth()->toDateString());
 
         $data = $this->productService->getReportByProduct($productId,$start, $end);
+        $product = Product::findOrFail($productId);
 
-        $pdf  = PDF::loadView('report.product.pdf', compact('data'));
+        $pdf  = PDF::loadView('report.product.pdf', compact('data', 'product'));
 
         $productName = Str::slug($data['summary']->product->name);
 
-        return $pdf->download("{{ $productName }}-{$start}-{$end}.pdf");
+        return $pdf->download("$productName-{$start}-{$end}.pdf");
     }
 
     public function exportProductExcel(Request $request, $productId){

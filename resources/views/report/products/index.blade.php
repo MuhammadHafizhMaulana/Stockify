@@ -13,7 +13,6 @@
 
         {{-- Tombol Export --}}
         <div class="mb-4 flex gap-3">
-            <a href="{{ route('report.index') }}" class="bg-blue-400 text-white px-4 py-2 rounded">&laquo</a>
             <a href="{{ route('report.products.pdf', request()->query()) }}"
                 class="bg-red-500 text-white px-4 py-2 rounded">Export PDF</a>
             <a href="{{ route('report.products.excel', request()->query()) }}"
@@ -68,5 +67,11 @@
                 @endforeach
             </tbody>
         </table>
+        {{-- Tombol Kembali --}}
+        <div class="mt-6">
+            <a href="{{ route('report.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                ← Kembali ke Halaman Report
+            </a>
+        </div>
     </div>
 </x-layout>

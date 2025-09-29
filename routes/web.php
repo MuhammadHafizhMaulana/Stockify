@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductReportController;
 use App\Http\Controllers\StockTransactionController;
+use App\Http\Controllers\UserLogController;
 
 Route::get('/', function () {
     return view('home', [
@@ -40,6 +41,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('product', ProductController::class);
 
     Route::get('/report',[ ProductReportController::class, 'index'])->name('report.index');
+    Route::get('/report/users',[ UserLogController::class, 'usersReport'])->name('report.users.index');
+    Route::get('/report/users/pdf',[ UserLogController::class, 'usersExportPdf'])->name('report.users.pdf');
+    Route::get('/report/user/{user}',[ UserLogController::class, 'userReport'])->name('report.user.index');
+    Route::get('/report/user/{user}/pdf',[ UserLogController::class, 'userExportPdf'])->name('report.user.pdf');
 
     Route::prefix('report/products')->name('report.products.')->group(function(){
     Route::get('/', [ProductReportController::class, 'productsReport'])->name('index');

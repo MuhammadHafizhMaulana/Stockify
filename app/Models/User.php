@@ -22,4 +22,8 @@ class User extends Authenticatable
     public function stockTransaction() : HasMany {
         return $this->hasMany(StockTransaction::class);
     }
+
+    public function activityLog() : HasMany {
+        return $this->hasMany(ActivityLog::class);
+    }
 }

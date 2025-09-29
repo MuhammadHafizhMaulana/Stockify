@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\ActivityLogService;
 use App\Http\Services\CategoryService;
 use Illuminate\Http\Request;
 use App\Http\Services\SupplierService;
@@ -38,7 +39,7 @@ class SupplierController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ActivityLogService $logService)
     {
         $dataSupplier = $request->validate([
             'name' => 'required',
@@ -47,7 +48,13 @@ class SupplierController extends Controller
             'email' => 'required',
         ]);
 
+        // Membuat data supplier
         $this->supplierService->createSupplier($dataSupplier);
+
+        $logService->log(
+            'create_supplier',
+            "Menambahkan supplier {$dataSupplier['name']} "
+        );
         return redirect()->route('supplier.index');
     }
 
@@ -71,7 +78,7 @@ class SupplierController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, ActivityLogService $logService)
     {
         $dataSupplier = $request->validate([
             'name' => 'required',
@@ -80,7 +87,56 @@ class SupplierController extends Controller
             'email' => 'required',
         ]);
 
+        $old = $this->supplierService->getSupplierById($id);
+
+        $oldData = [
+            'Nama' => $old->name,
+            'Email' => $old->email
+        ];
+
+        // Edit supplier
         $this->supplierService->updateSupplier($id, $dataSupplier);
+
+        // Membandingkan field yang berubah
+        $changed = [];
+        foreach($dataSupplier as $key => $newValue){
+            if (array_key_exists($key,$oldData) && $oldData[$key] != $newValue){
+                $changed[$key] = [
+                    'old' => $oldData[$key],
+                    'new' => $newValue
+                ];
+            }
+        }
+
+        // Membuat deskripsi data yang berubah
+        if (!empty($changed)){
+            $parts = [];
+            foreach ($changed as $field => $values){
+                // Menampilkan nama produk
+                if($field === 'supplier_id'){
+                    $oldName = optional($old->supplier)->name ?? '-';
+                    $newName = optional(Product::find($values['new']))->name ?? '-';
+                    $parts[] = "supplier: {$oldName} → {$newName}";
+                } else {
+                    $parts[] = "{$field}: {$values['old']} → {$values['new']}}";
+                }
+            }
+
+            $description = "Mengubah data supplier ID {$old->id} (" .
+                implode(', ', $parts) . ")";
+
+            $logService->log('edit_supplier', $description);
+        }
+
+        // Membuat deskripsi log
+        $description = sprintf(
+            'Mengubah data supplier'
+        );
+
+        $logService->log(
+            'edit_supplier'
+        );
+
         return redirect()
         ->route('supplier.index')
         ->with('success', 'supplier updated succsessfully');
@@ -89,11 +145,24 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, ActivityLogService $logService)
     {
+        // ambil data
+        $supplier = $this->supplierService->getSupplierById($id);
+
+        // Buat log
+        $logService->log(
+            'delete_supplier',
+            "Menghapus Supplier ID {$supplier->id}, ".
+            "Supplier {$supplier->name}, ".
+            "Email {$supplier->email}, ".
+            "Phone {$supplier->phone}, "
+        );
+
+        // hapus supplier
         $this->supplierService->deleteSupplier($id);
         return redirect()
-        ->route('category.index')
+        ->route('supplier.index')
         ->with('success', 'supplier deleted');
     }
 }

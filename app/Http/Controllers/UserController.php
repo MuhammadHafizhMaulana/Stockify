@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\ActivityLogService;
 use Illuminate\Http\Request;
 use App\Http\Services\UserService;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -33,7 +36,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ActivityLogService $logService)
     {
         $data = $request->validate([
             'name' => 'required',
@@ -43,7 +46,7 @@ class UserController extends Controller
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
-        $user = $this->userService->createUser($data);;
+        $user = $this->userService->createUser($data);
 
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -55,7 +58,19 @@ class UserController extends Controller
             $this->userService->updateUser( $user->id,['image'=> $path]);
         }
 
-        return redirect()->route('user.index');
+        $actor = Auth::check()
+            ? 'admin' . Auth::user()->name
+            : 'User mendaftar sendiri';
+
+        $logService->log(
+            'create_user',
+            "{$actor} membuat akun baru : " .
+            "Nama : {$user->name}, Email : {$user->email}, Role : {$user->role}"
+        );
+
+        return redirect()
+        ->route('user.index')
+        ->with('success', "User berhasil terdaftar");
     }
 
     /**
@@ -78,7 +93,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, ActivityLogService $logService)
     {
         $user = $this->userService->getUserById($id);
 
@@ -89,6 +104,12 @@ class UserController extends Controller
             'role' => 'required',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
         ]);
+
+        $old = $this->userService->getUserById($id);
+        $oldData = [
+            'name' => $old->name,
+            'role' => $old->role,
+        ];
 
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -109,6 +130,42 @@ class UserController extends Controller
         }
 
         $this->userService->updateUser($id, $data);
+
+        // Membandingkan field yang berubah
+        $changed = [];
+        foreach($data as $key => $newValue){
+            if (array_key_exists($key,$oldData) && $oldData[$key] != $newValue){
+                $changed[$key] = [
+                    'old' => $oldData[$key],
+                    'new' => $newValue
+                ];
+            }
+        }
+
+        // Membuat deskripsi data yang berubah
+        if (!empty($changed)){
+            $parts = [];
+            foreach ($changed as $field => $values){
+                // Menampilkan nama produk
+                if($field === 'user_id'){
+                    $oldName = optional($old->user)->name ?? '-';
+                    $newName = optional(User::find($values['new']))->name ?? '-';
+                    $parts[] = "produk: {$oldName} → {$newName}";
+                } else {
+                    $parts[] = "{$field}: {$values['old']} → {$values['new']}}";
+                }
+            }
+
+            $description = "Mengubah User ID {$old->id} (" .
+                implode(', ', $parts) . ")";
+
+            $logService->log('edit_user', $description);
+        }
+
+        // Membuat deskripsi log
+        $description = sprintf(
+            'Mengubah data user'
+        );
         return redirect()
         ->route('user.index')
         ->with('success', 'user updated successfully');
@@ -117,9 +174,26 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, ActivityLogService $logService)
     {
+        $user = $this->userService->getUserById($id);
+        if(!$user){
+            return redirect()
+            ->route('user.index')
+            ->with('error', 'User tidak ditemukan');
+        }
+
+        // hapus user
         $this->userService->deleteUser($id);
+
+        // Buat log
+        $logService->log(
+            'delete_user',
+            "Menghapus transaksi user ID {$user->id}, ".
+            "Nama {$user->name}, ".
+            "Email {$user->email}, ".
+            "Role {$user->role}, "
+        );
         return redirect()
         ->route('user.index')
         ->with('success', 'user deleted');

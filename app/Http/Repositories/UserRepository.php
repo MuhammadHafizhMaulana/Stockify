@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 
 class UserRepository{
