@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductReportController;
@@ -32,13 +33,12 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::middleware('auth')->group(function(){
-    Route::get('/dashboard', function () {
-        return view('dashboard', [
-            'title' => 'Dashboard'
-        ]);
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('product', ProductController::class);
+    Route::get('/product/import/form',[ProductController::class, 'formInput'])->name('product.import.form');
+    Route::post('/product/import/preview',[ProductController::class, 'previewImport'])->name('product.import.preview');
+    Route::post('/product/import/store',[ProductController::class, 'import'])->name('product.import.store');
 
     Route::get('/report',[ ProductReportController::class, 'index'])->name('report.index');
     Route::get('/report/users',[ UserLogController::class, 'usersReport'])->name('report.users.index');

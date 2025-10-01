@@ -48,6 +48,8 @@ class SupplierController extends Controller
             'email' => 'required',
         ]);
 
+        $dataSupplier['name'] = strtolower($dataSupplier['name']);
+
         // Membuat data supplier
         $this->supplierService->createSupplier($dataSupplier);
 
@@ -93,6 +95,8 @@ class SupplierController extends Controller
             'Nama' => $old->name,
             'Email' => $old->email
         ];
+
+        $dataSupplier['name'] = strtolower($dataSupplier['name']);
 
         // Edit supplier
         $this->supplierService->updateSupplier($id, $dataSupplier);

@@ -41,6 +41,16 @@
             </table>
         </div>
 
+        @if (Auth::user()->role === 'admin')
+            {{-- Tombol ke Index Import --}}
+            <div class="mt-6 mb-4">
+                <a href="{{ route('product.import.form') }}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 font-semibold rounded shadow">
+                    Import Produk
+                </a>
+            </div>
+        @endif
+
         {{-- Form Tambah --}}
         <div x-show="open" x-cloak x-transition class="border p-6 rounded-lg bg-gray-50 shadow">
             <h2 class="text-lg font-bold mb-4">Form Tambah Post</h2>
@@ -62,7 +72,7 @@
                         @foreach ($suppliers as $supplier)
                             <option value="{{ $supplier->id }}"
                                 {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
-                                {{ $supplier->name }}
+                                {{ ucwords($supplier->name) }}
                             </option>
                         @endforeach
                     </select>
@@ -76,7 +86,7 @@
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
+                                {{ ucwords($category->name) }}
                             </option>
                         @endforeach
                     </select>
@@ -165,14 +175,14 @@
                             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $product->name }}
+                                {{ ucfirst($product->name) }}
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $product->supplier->name }}
+                                {{ ucfirst($product->supplier->name) }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $product->category->name }}
+                                {{ ucfirst($product->category->name) }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $product->minimum_stock }}
@@ -182,7 +192,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 @foreach ($product->productAttribute as $pras)
-                                    <p>{{ $pras->name . ', ' }}</p>
+                                    <p>{{ ucfirst($pras->name) . ', ' }}</p>
                                 @endforeach
                                 <a href="{{ route('productAttribute.index', $product->id) }}"
                                     class="text-xs text-blue-600 ">+</a>

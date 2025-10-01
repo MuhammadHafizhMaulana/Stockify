@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="mt-10 x-data:mt-0 flex items-center justify-center bg-white dark:bg-neutral-800" x-data="{ editing: false }">
+    <div class="mt-10 x-data:mt-0 flex items-center justify-center bg-transparent bg-blend-screen dark:bg-transparent"
+        x-data="{ editing: false }">
         {{-- state Alpine --}}
 
         <div

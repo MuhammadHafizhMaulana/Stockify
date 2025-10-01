@@ -32,20 +32,11 @@
                             <a href="{{ route('product.index') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('product.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Product</a>
                             <a href="{{ route('stockTransaction.index') }}"
-                                class="relative rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('stockTransaction.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
-                                Transaction
-                                @if (!empty($pendingTransactionCount) && $pendingTransactionCount > 0)
-                                    <span
-                                        class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center     rounded-full bg-red-600 text-xs font-bold text-white">
-                                        {{ $pendingTransactionCount }}
-                                    </span>
-                                @endif
-                            </a>
+                                class="relative rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('stockTransaction.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Transaction</a>
                             <a href="{{ route('supplier.index') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('supplier.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Supplier</a>
                             <a href="{{ route('report.index') }}"
                                 class="rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('report.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
-
                         @endif
 
                         {{-- Link User: hanya untuk Staff --}}
@@ -114,19 +105,47 @@
     </div>
 
     <el-disclosure id="mobile-menu" hidden class="block md:hidden">
-        <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-            <a href="#" aria-current="page"
-                class="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">Dashboard</a>
-            <a href="#"
-                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Team</a>
-            <a href="#"
-                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Projects</a>
-            <a href="#"
-                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Calendar</a>
-            <a href="#"
-                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Reports</a>
-        </div>
+        @if (Auth::user()->role === 'admin')
+            <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+                <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                <a href="{{ route('dashboard') }}" aria-current="page"
+                    class="block rounded-md {{ request()->routeIs('dashboard') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Dashboard</a>
+                <a href="{{ route('user.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('user.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">User</a>
+                <a href="{{ route('product.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('product.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Product</a>
+                <a href="{{ route('supplier.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('supplier.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Supplier</a>
+                <a href="{{ route('stockTransaction.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('stockTransaction') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Transaction</a>
+                <a href="{{ route('report.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('report.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
+            </div>
+        @endif
+        @if (Auth::user()->role === 'manajer')
+            <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+                <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                <a href="{{ route('dashboard') }}" aria-current="page"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('dashboard') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Dashboard</a>
+                <a href="{{ route('product.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('product.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Product</a>
+                <a href="{{ route('supplier.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('supplier.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Supplier</a>
+                <a href="{{ route('stockTransaction.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('stockTransaction.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Transaction</a>
+                <a href="{{ route('report.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('report.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Laporan</a>
+            </div>
+        @endif
+        @if (Auth::user()->role === 'staff')
+            <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+                <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                <a href="{{ route('dashboard') }}" aria-current="page"
+                    class="block rounded-md  px-3 py-2 {{ request()->routeIs('dashboard') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Dashboard</a>
+                <a href="{{ route('stockTransaction.index') }}"
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('stockTransaction.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Transaction</a>
+            </div>
+        @endif
         <div class="border-t border-white/10 pt-4 pb-3">
             <div class="flex items-center px-5">
                 <div class="shrink-0">

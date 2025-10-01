@@ -53,6 +53,7 @@
                     <td align="center">{{ $trx->quantity }}</td>
                     <td>{{ ucfirst($trx->status) }}</td>
                     <td align="center">{{ ucfirst($trx->notes) }}</td>
+                    <td>{{ ucwords($trx->user->name) }}/{{ $trx->user->role }}</td>
                 </tr>
             @endforeach
         </tbody>

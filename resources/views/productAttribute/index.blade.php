@@ -29,7 +29,7 @@
                         <option value="">-- Pilih Product --</option>
                         @foreach ($product as $pr)
                             <option value="{{ $pr->id }}" {{ old('product_id') == $pr->id ? 'selected' : '' }}>
-                                {{ $pr->name }}
+                                {{ ucwords($pr->name) }}
                             </option>
                         @endforeach
                     </select>

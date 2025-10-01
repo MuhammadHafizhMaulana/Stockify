@@ -11,7 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 </head>
 
-<body class="h-full bg-white dark:bg-neutral-800">
+<body
+    class="min-h-screen bg-gradient-to-tr from-purple-300 via-indigo-200 to-purple-100 dark:from-purple-950 dark:via-indigo-800 dark:to-purple-700">
     <div class="min-h-full">
         <x-navbar></x-navbar>
         <main>

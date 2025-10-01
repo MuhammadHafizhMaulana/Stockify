@@ -43,6 +43,8 @@ class ProductAttributeController extends Controller
             'product_id' => 'required|exists:products,id',
         ]);
 
+        $data['name'] = strtolower($data['name']);
+
         $this->productAttributeService->createProductAttribute($data);
 
         $productName = Product::find($data['product_id'])->name;
@@ -90,6 +92,8 @@ class ProductAttributeController extends Controller
             'value' => $old->value,
             'product_id' => $old->product_id,
         ];
+
+        $data['name'] = strtolower($data['name']);
 
         // Mengupdate product attribute
         $this->productAttributeService->updateProductAttribute($id, $data);

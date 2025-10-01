@@ -46,6 +46,9 @@ class CategoryController extends Controller
             'description' => 'required',
         ]);
 
+        $dataCategory['name'] = strtolower($dataCategory['name']);
+        $dataCategory['description'] = strtolower($dataCategory['description']);
+
         $this->categoryService->createCategory($dataCategory);
 
         $logService->log(
@@ -88,6 +91,9 @@ class CategoryController extends Controller
         $oldData = [
             'nama' => $old->name
         ];
+
+        $dataCategory['name'] = strtolower($dataCategory['name']);
+        $dataCategory['description'] = strtolower($dataCategory['description']);
 
         // mengedit data
         $this->categoryService->updateCategory($id, $dataCategory);

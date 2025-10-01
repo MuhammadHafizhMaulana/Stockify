@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ActivityLogService;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\ActivityLogService;
 use App\Http\Services\StockTransactionService;
-use App\Models\ActivityLog;
-use App\Models\StockTransaction;
 
 class StockTransactionController extends Controller
 {

@@ -1,7 +1,7 @@
 <x-layout>
     <div class="max-w-5xl mx-auto my-10 px-4">
         <!-- Card Besar -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 h-4/6">
+        <div class="bg-transparent dark:bg-transparent rounded-2xl shadow-xl p-8 h-4/6">
             <h1 class="text-2xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">
                 Laporan &amp; Monitoring
             </h1>

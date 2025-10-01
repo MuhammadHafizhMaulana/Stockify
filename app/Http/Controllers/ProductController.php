@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ActivityLogService;
 use App\Models\Product;
-use App\Http\Services\ProductService;
 use App\Models\Category;
-use App\Models\ProductAttribute;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Models\ProductAttribute;
+use App\Imports\ProductStockImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Services\ProductService;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Services\ActivityLogService;
 
 class ProductController extends Controller
 {
@@ -55,6 +57,11 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'minimum_stock' => 'required|integer|min:1',
         ]);
+
+        // ubah ke lower case
+        $data['name'] = strtolower($data['name']);
+        $data['sku'] = strtolower($data['sku']);
+        $data['description'] = strtolower($data['description']);
 
         $product = $this->productService->createProduct($data);
         $supplierName = Supplier::find($data['supplier_id'])->name;
@@ -156,6 +163,12 @@ class ProductController extends Controller
             'minimum_stock' => $old->minimum_stock,
         ];
 
+
+        // ubah ke lower case
+        $data['name'] = strtolower($data['name']);
+        $data['sku'] = strtolower($data['sku']);
+        $data['description'] = strtolower($data['description']);
+
         $this->productService->updateProduct($id, $data);
 
         // Membandingkan field yang berubah
@@ -222,5 +235,83 @@ class ProductController extends Controller
             "Category {$product->category}, "
         );
         return redirect()->route('product.index');
+    }
+
+    public function formInput(){
+        return view('product.import.form');
+    }
+
+    public function previewImport(Request $request){
+
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        $collection = Excel::ToCollection(null, $request->file('file'))->first();
+
+        $rows = $collection->skip(1)->map(function($row,$index){
+            $supplier = Supplier::where('name', $row[2])->first();
+            $category = Category::where('name', $row[3])->first();
+
+            if(!$supplier){
+                throw new \Exception("Supplier '{$row[2]}' tidak ditemukan pada baris ke- " . ($index + 2));
+            }
+
+            if(!$category){
+                throw new \Exception("Category '{$row[3]}' tidak ditemukan pada baris ke- " . ($index + 2));
+            }
+
+            return [
+            'name'              => $row['0'],
+            'sku'               => $row['1'],
+            'supplier_id'       => Supplier::where('name',$row['2'])->value('id'),
+            'category_id'       => Category::where('name', $row['3'])->value('id'),
+            'description'       => $row['4'],
+            'purchase_price'    => $row['5'],
+            'selling_price'     => $row['6'],
+            'minimum_stock'     => $row['7'],
+            'current_stock'     => $row['8'] ?? 0,
+            ];
+        });
+
+        session(['import_data' => $rows]);
+
+        return view('product.import.preview', compact('rows'));
+    }
+
+    public function import(Request $request, ActivityLogService $logService){
+        $rows = session('import_data');
+
+        if (!$rows || $rows->isEmpty()){
+            return redirect()->route('product.import.form')->with('eror','File not found');
+        }
+
+        foreach($rows as $row){
+            $product = Product ::where('sku', $row['sku'])
+                        ->where('supplier_id', $row['supplier_id'])
+                        ->first();
+
+            if($product){
+                $product->current_stock += $row['current_stock'];
+                $product->save();
+
+                $logService->log(
+                    'update_stock(import)',
+                    "Import produk baru {$product->name}"
+                );
+            } else{
+
+                $newProduct = Product::create($row);
+                $logService->log(
+                    'create_transaction(import)',
+                    "Import produk baru {$newProduct->name}"
+                );
+            }
+        }
+
+        session()->forget('import_data');
+
+        return redirect()->route('product.index')
+                         ->with('success', 'Data has been imported');
     }
 }

@@ -17,7 +17,7 @@
                     <div class="p-6 md:p-10 flex flex-col justify-between">
                         <div>
                             <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
-                                {{ $product->name }}
+                                {{ ucwords($product->name) }}
                             </h1>
                             <div class="space-y-3 text-gray-700 dark:text-gray-200">
                                 <p><span class="font-semibold">SKU:</span> {{ $product->sku }}</p>
@@ -32,7 +32,7 @@
                             <hr class="my-6 border-gray-300 dark:border-gray-600">
 
                             <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                {{ $product->description }}
+                                {{ ucfirst($product->description) }}
                             </p>
                         </div>
 
