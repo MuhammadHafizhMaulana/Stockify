@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Models\StockTransaction;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -21,7 +22,7 @@ class DashboardController extends Controller
 
             $start = $request->input('start_date', now()->startOfMonth()->toDateString());
             $end = $request->input('end_date', now()->endOfMonth()->toDateString());
-            $lowStock = Product::where('current_stock', '<', 20)->get();
+            $lowStock = Product::where('current_stock', '<=', DB::raw('minimum_stock + 20'))->get();
 
             $totalProduct = Product::count();
 
@@ -48,7 +49,7 @@ class DashboardController extends Controller
 
         if($user->role === 'manajer'){
 
-            $dangerStock = Product::where('current_stock', '<', 20)->get();
+            $dangerStock = Product::where('current_stock', '<=', DB::raw('minimum_stock + 20'))->get();
 
             $totalProduct = Product::count();
 
@@ -80,7 +81,7 @@ class DashboardController extends Controller
                 ->whereDate('created_at', now()->subDay())
                 ->get();
 
-            $dangerStock = Product::where('current_stock', '<', 20)->get();
+            $dangerStock = Product::where('current_stock', '<=', DB::raw('minimum_stock + 20'))->get();
 
             $pending = StockTransaction::where('status', 'pending')
                 ->where('user_id', $user->id)

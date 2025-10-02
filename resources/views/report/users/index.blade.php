@@ -1,19 +1,21 @@
 <x-layout>
 
     <div class="max-w-6xl mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-6">Log Aktivitas Terbaru User</h1>
-        {{-- Filter Periode --}}
-        <form method="GET" class="mb-6 flex gap-2">
-            <input type="date" name="start_date" value="{{ request('start_date', $data['periode'][0]) }}"
-                class="border rounded p-2">
-            <input type="date" name="end_date" value="{{ request('end_date', $data['periode'][1]) }}"
-                class="border rounded p-2">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Terapkan</button>
-        </form>
-        {{-- Tombol Export --}}
-        <div class="mb-4 flex gap-3">
-            <a href="{{ route('report.users.pdf', request()->query()) }}"
-                class="bg-red-500 text-white px-4 py-2 rounded">Export PDF</a>
+        <div class="bg-white rounded-xl p-3 mb-3">
+            <h1 class="text-2xl font-bold mb-6">Log Aktivitas Terbaru User</h1>
+            {{-- Filter Periode --}}
+            <form method="GET" class="mb-6 flex gap-2">
+                <input type="date" name="start_date" value="{{ request('start_date', $data['periode'][0]) }}"
+                    class="border rounded p-2">
+                <input type="date" name="end_date" value="{{ request('end_date', $data['periode'][1]) }}"
+                    class="border rounded p-2">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Terapkan</button>
+            </form>
+            {{-- Tombol Export --}}
+            <div class="mb-4 flex gap-3">
+                <a href="{{ route('report.users.pdf', request()->query()) }}"
+                    class="bg-red-500 text-white px-4 py-2 rounded">Export PDF</a>
+            </div>
         </div>
 
         {{-- pesan sukses/error jika ada --}}
