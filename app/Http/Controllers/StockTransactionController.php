@@ -205,7 +205,7 @@ class StockTransactionController extends Controller
         $logService->log(
             'approve_trasaction',
             "Approve transaksi stok ID {$transaction->id}, ".
-            "Produk {$transaction->product}, ".
+            "Produk {$transaction->product->name}, ".
             "Jumlah {$transaction->quantity}, ".
             "Tipe {$transaction->type}, "
         );

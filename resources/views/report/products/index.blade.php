@@ -1,6 +1,6 @@
 <x-layout>
     <div class="max-w-6xl mx-auto">
-        <div class="bg-white p-3 mb-3 rounded-xl dark:bg-gray-700 dark: text-white dark:border-amber-50">
+        <div class="bg-white p-3 mb-3 rounded-xl dark:bg-gray-700 dark:text-white dark:border-amber-50">
             <h1 class="text-2xl font-bold mb-4">Laporan Keluar-Masuk Produk</h1>
 
             {{-- Filter Periode --}}

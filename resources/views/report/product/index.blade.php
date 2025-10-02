@@ -1,6 +1,6 @@
 <x-layout>
     <div class="max-w-5xl mx-auto">
-        <div class="bg-white rounded-xl p-3 mb-3 dark:bg-gray-700 dark:text-white dark:border-amber-50">
+        <div class="bg-white rounded-xl p-3 mb-3 text-black dark:bg-gray-700 dark:text-white dark:border-amber-50">
             <h1 class="text-2xl font-bold mb-6">Pilih Produk untuk Melihat Laporan</h1>
 
             {{-- Optional: Pencarian Produk --}}

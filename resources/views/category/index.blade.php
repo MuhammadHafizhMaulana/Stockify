@@ -22,11 +22,10 @@
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Total Supplier : {{ $suppliers->count() }}
-                                {{-- Tombol toggle --}}
-                                <button @click="open = !open"
-                                    class="text-xs mb-4 ml-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded shadow">
-                                    view all
-                                </button>
+                                <a href="{{ route('supplier.index') }}"
+                                    class="inline-flex items-center mb-4 ml-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded shadow text-xs">
+                                    View Product
+                                </a>
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Total Category : {{ $categories->count() }}

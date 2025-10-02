@@ -106,13 +106,13 @@
 
                 <div>
                     <label for="purchase_price" class="block text-sm font-medium text-gray-700">Purchase Price</label>
-                    <input type="number" name="purchase_price" id="purchase_price" required
+                    <input type="number" name="purchase_price" id="purchase_price" max="9999999999" required
                         class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
                 <div>
                     <label for="selling_price" class="block text-sm font-medium text-gray-700">Selling Price</label>
-                    <input type="number" name="selling_price" id="selling_price" required
+                    <input type="number" name="selling_price" id="selling_price" max="9999999999" required
                         class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
@@ -123,8 +123,8 @@
                 </div>
 
                 <div>
-                    <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
-                    <input type="number" name="minimum_stock" id="stock" required
+                    <label for="stock" class="block text-sm font-medium text-gray-700">Minimum Stock</label>
+                    <input type="number" name="minimum_stock" id="stock" max="9999999999" required
                         class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 

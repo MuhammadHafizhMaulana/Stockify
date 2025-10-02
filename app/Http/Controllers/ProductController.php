@@ -222,6 +222,11 @@ class ProductController extends Controller
             ->with('error', 'Transaksi tidak ditemukan');
         }
 
+        // hapus foto
+        if ($product->image && Storage::disk('public')->exists($product->image)){
+            Storage::disk('public')->delete($product->image);
+        }
+
         // hapus product
         $this->productService->deleteProduct($id);
 

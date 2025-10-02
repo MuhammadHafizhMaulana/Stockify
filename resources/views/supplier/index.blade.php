@@ -50,26 +50,26 @@
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
                     <input type="text" name="name" id="name" required
-                        class="mt-1 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                        class="mt-1 border-2 py-1 pl-1 w-full rounded border-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
                 <div>
                     <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                     <input type="text" name="address" id="address" required
-                        class="mt-1 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                        class="mt-1 border-2 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
 
                 <div>
                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
                     <input type="text" name="phone" id="phone" required
-                        class="mt-1 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                        class="mt-1 border-2 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="email" name="email" id="email" required
-                        class="mt-1 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                        class="mt-1 border-2 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
                 <div class="flex justify-end space-x-2">

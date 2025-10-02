@@ -41,7 +41,7 @@
                 </div>
 
                 <div>
-                    <label for="value" class="w-full block text-sm font-medium text-gray-700">Notes</label>
+                    <label for="value" class="w-full block text-sm font-medium text-gray-700">Value</label>
                     <textarea type="text" name="value" id="value" required
                         class=" mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 data-hs-textarea-auto-height"></textarea>
                 </div>

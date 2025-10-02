@@ -17,29 +17,29 @@
 
                 <div class="relative pb-3">
                     <select name="supplier_id">
-                        @foreach($supplier as $sup)
-                        <option value="{{ $sup->id }}"
-                            {{ old('supplier_id', $product->sup_id) == $sup->id ? 'selected' : '' }}>
-                            {{ $sup->name }}
-                        </option>
+                        @foreach ($supplier as $sup)
+                            <option value="{{ $sup->id }}"
+                                {{ old('supplier_id', $product->sup_id) == $sup->id ? 'selected' : '' }}>
+                                {{ $sup->name }}
+                            </option>
                         @endforeach
                     </select>
                     @error('supplier_id')
-                    <div class="error">{{ $message }}</div>
+                        <div class="error">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="relative pb-3">
                     <select name="category_id">
-                        @foreach($category as $cat)
-                        <option value="{{ $cat->id }}"
-                            {{ old('category_id', $product->cat_id) == $cat->id ? 'selected' : '' }}>
-                            {{ $cat->name }}
-                        </option>
+                        @foreach ($category as $cat)
+                            <option value="{{ $cat->id }}"
+                                {{ old('category_id', $product->cat_id) == $cat->id ? 'selected' : '' }}>
+                                {{ $cat->name }}
+                            </option>
                         @endforeach
                     </select>
                     @error('category_id')
-                    <div class="error">{{ $message }}</div>
+                        <div class="error">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -58,28 +58,34 @@
                 <div class="relative">
                     <input type="number"
                         class="peer py-2.5 sm:py-3 ps-3 block w-full bg-gray-100 border-transparent rounded-lg sm:number-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:number-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                        placeholder="Enter purchase price" name="purchase_price" value="{{ $product->purchase_price }}">
+                        placeholder="Enter purchase price" name="purchase_price" max="9999999999"
+                        value="{{ $product->purchase_price }}">
                 </div>
 
                 <div class="relative">
                     <input type="number"
                         class="peer py-2.5 sm:py-3 ps-3 block w-full bg-gray-100 border-transparent rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                        placeholder="Enter selling price" name="selling_price" value="{{ $product->selling_price }}">
+                        placeholder="Enter selling price" name="selling_price" max="9999999999"
+                        value="{{ $product->selling_price }}">
                 </div>
 
                 <div class="relative">
                     <label>Image</label><br>
-                    <input type="file" name="image" class="py-1 pl-1 m-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                    @if($product->image)
-                    <img src="{{ asset('storage/'.$product->image) }}" alt="" width="100">
+                    <input type="file" name="image"
+                        class="py-1 pl-1 m-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    @if ($product->image)
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="" width="100">
                     @endif
-                    @error('image') <div class="error">{{ $message }}</div> @enderror
+                    @error('image')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="relative">
                     <input type="number"
                         class="peer py-2.5 sm:py-3 ps-3 block w-full bg-gray-100 border-transparent rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                        placeholder="Enter stock" name="minimum_stock" value="{{ $product->minimum_stock }}">
+                        placeholder="Enter stock" name="minimum_stock" max="9999999999"
+                        value="{{ $product->minimum_stock }}">
                 </div>
             </div>
 

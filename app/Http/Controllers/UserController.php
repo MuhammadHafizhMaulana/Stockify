@@ -95,15 +95,18 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id, ActivityLogService $logService)
     {
+        //dd($request->all());
         $user = $this->userService->getUserById($id);
 
         $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'role' => 'required',
+            'name' => 'nullable',
+            'email' => 'nullable',
+            'password' => 'nullable',
+            'role' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
         ]);
+
+        //dd($data);
 
         $old = $this->userService->getUserById($id);
         $oldData = [
@@ -115,7 +118,7 @@ class UserController extends Controller
             $file = $request->file('image');
 
             //hapus file lama
-            if($user->image && Storage::disk('users')->exists($user->image)){
+            if($user->image && Storage::disk('public')->exists($user->image)){
                 Storage::disk('public')->delete($user->image);
             }
 
