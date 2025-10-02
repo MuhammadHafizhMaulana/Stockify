@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductReportController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\UserLogController;
 
@@ -39,6 +40,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/product/import/form',[ProductController::class, 'formInput'])->name('product.import.form');
     Route::post('/product/import/preview',[ProductController::class, 'previewImport'])->name('product.import.preview');
     Route::post('/product/import/store',[ProductController::class, 'import'])->name('product.import.store');
+
+    Route::resource('setting', SettingController::class);
 
     Route::get('/report',[ ProductReportController::class, 'index'])->name('report.index');
     Route::get('/report/users',[ UserLogController::class, 'usersReport'])->name('report.users.index');

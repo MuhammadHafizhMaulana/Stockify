@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use App\Models\StockTransaction;
-use App\Observers\StockTransactionObserver;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\StockTransactionObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         StockTransaction::observe(StockTransactionObserver::class);
+        View::share('setting', Setting::first());
     }
 }

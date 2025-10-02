@@ -3,7 +3,9 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="shrink-0">
-                    <img src="{{ asset('storage/assets/logo.jpeg') }}" alt="Your Company" class="size-8 rounded-2xl" />
+                    <img src="{{ $setting && $setting->logo ? asset('storage/' . $setting->logo) : asset('storage/assets/logo.jpeg') }}"
+                        alt="Your Company" class="size-8 rounded-2xl" />
+                    {{-- <img src="{{  asset('storage/assets/logo.jpeg') }}" alt="Your Company" class="size-8 rounded-2xl" /> --}}
                 </div>
                 <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-4">
                     <div class="ml-10 flex items-stretch justify-center space-x-4">
@@ -69,6 +71,10 @@
                             class="w-48 origin-top-right rounded-md bg-gray-800 py-1 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
                             <a href="{{ route('user.edit', Auth::id()) }}"
                                 class="block w-full px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Profile</a>
+                            @if (Auth::user()->role === 'admin')
+                                <a href="{{ route('setting.index') }}"
+                                    class="block w-full px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Setting</a>
+                            @endif
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit"

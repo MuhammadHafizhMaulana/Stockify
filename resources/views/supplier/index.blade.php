@@ -50,7 +50,7 @@
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
                     <input type="text" name="name" id="name" required
-                        class="mt-1 border-2 py-1 pl-1 w-full rounded border-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                        class="mt-1 border-2 py-1 pl-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 
                 <div>
