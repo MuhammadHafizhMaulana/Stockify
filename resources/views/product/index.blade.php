@@ -193,32 +193,35 @@
                             <td class="px-6 py-4">
                                 {{ $product->current_stock }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 @foreach ($product->productAttribute as $pras)
                                     <p>{{ ucfirst($pras->name) . ', ' }}</p>
                                 @endforeach
                                 <a href="{{ route('productAttribute.create', $product->id) }}"
                                     class="text-xs text-blue-600 ">+</a>
                             </td>
-                            <td class="px-6 py-4">
-                                {{-- Link ke halaman edit --}}
-                                <a href="{{ route('product.edit', $product->id) }}"
-                                    class="button text-xs text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
+                            <td class="px-6 py-4 whitespace-nowrap"">
+                                <div class="flex gap-2">
+                                    {{-- Link ke halaman edit --}}
+                                    <a href="{{ route('product.edit', $product->id) }}"
+                                        class="button text-xs text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
 
-                                {{-- Form delete --}}
-                                @if ($product->current_stock <= 0)
-                                    <form action="{{ route('product.destroy', $product->id) }}" method="POST"
-                                        class="inline button" onsubmit="return confirm('Yakin hapus product ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="text-white text-xs bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
-                                    </form>
-                                @endif
+                                    {{-- Form delete --}}
+                                    @if ($product->current_stock <= 0)
+                                        <form action="{{ route('product.destroy', $product->id) }}" method="POST"
+                                            class="inline-block"
+                                            onsubmit="return confirm('Yakin hapus product ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-white text-xs bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full px-5 py-2.5 text-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
+                                        </form>
+                                    @endif
 
-                                {{-- Link ke halaman detail --}}
-                                <a href="{{ route('product.show', $product->id) }}"
-                                    class="button text-xs text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
+                                    {{-- Link ke halaman detail --}}
+                                    <a href="{{ route('product.show', $product->id) }}"
+                                        class="button text-xs text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detail</a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

@@ -112,7 +112,7 @@
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
                 <a href="{{ route('dashboard') }}" aria-current="page"
-                    class="block rounded-md {{ request()->routeIs('dashboard') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Dashboard</a>
+                    class="block rounded-md px-3 py-2 {{ request()->routeIs('dashboard') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Dashboard</a>
                 <a href="{{ route('user.index') }}"
                     class="block rounded-md px-3 py-2 {{ request()->routeIs('user.*') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">User</a>
                 <a href="{{ route('product.index') }}"
