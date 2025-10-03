@@ -6,7 +6,7 @@ use App\Models\StockTransaction;
 
 class StockTransactionRepository{
     public function getAll(){
-        return StockTransaction::all();
+        return StockTransaction::orderBy('updated_at', 'desc')->get();
     }
 
     public function findById($id){

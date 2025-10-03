@@ -48,97 +48,100 @@
                     class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 font-semibold rounded shadow">
                     Import Produk
                 </a>
-            </div>
         @endif
-
-        {{-- Form Tambah --}}
-        <div x-show="open" x-cloak x-transition class="border p-6 rounded-lg bg-gray-50 shadow">
-            <h2 class="text-lg font-bold mb-4">Form Tambah Post</h2>
-
-            <form action="{{ route('product.store') }}" method="POST" class="space-y-4" enctype="multipart/form-data">
-                @csrf
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" name="name" id="name" required
-                        class="mt-1 py-1 pl-1 border-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                </div>
+        <a href="{{ route('productAttribute.index') }}"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 font-semibold rounded shadow ml-3">
+            Tambah Attribute
+        </a>
+    </div>
 
 
-                <div>
-                    <label for="supplier" class="block text-sm font-medium text-gray-700">Supplier</label>
-                    <select name="supplier_id" id="supplier" required
-                        class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                        <option value="">-- Pilih Supplier --</option>
-                        @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}"
-                                {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
-                                {{ ucwords($supplier->name) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+    {{-- Form Tambah --}}
+    <div x-show="open" x-cloak x-transition class="border p-6 rounded-lg bg-gray-50 shadow">
+        <h2 class="text-lg font-bold mb-4">Form Tambah Post</h2>
 
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-                    <select name="category_id" id="category" required
-                        class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                        <option value="">-- Pilih Category --</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ ucwords($category->name) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+        <form action="{{ route('product.store') }}" method="POST" class="space-y-4" enctype="multipart/form-data">
+            @csrf
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" id="name" required
+                    class="mt-1 py-1 pl-1 border-1 w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+            </div>
 
-                <div>
-                    <label for="sku" class="block text-sm font-medium text-gray-700">SKU</label>
-                    <input type="text" name="sku" id="sku" required
-                        class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                </div>
 
-                <div>
-                    <label for="description" class="w-full block text-sm font-medium text-gray-700">Description</label>
-                    <textarea type="text" name="description" id="description" required
-                        class=" mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 data-hs-textarea-auto-height"></textarea>
-                </div>
+            <div>
+                <label for="supplier" class="block text-sm font-medium text-gray-700">Supplier</label>
+                <select name="supplier_id" id="supplier" required
+                    class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">-- Pilih Supplier --</option>
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
+                            {{ ucwords($supplier->name) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-                <div>
-                    <label for="purchase_price" class="block text-sm font-medium text-gray-700">Purchase Price</label>
-                    <input type="number" name="purchase_price" id="purchase_price" max="9999999999" required
-                        class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                </div>
+            <div>
+                <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+                <select name="category_id" id="category" required
+                    class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">-- Pilih Category --</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ ucwords($category->name) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-                <div>
-                    <label for="selling_price" class="block text-sm font-medium text-gray-700">Selling Price</label>
-                    <input type="number" name="selling_price" id="selling_price" max="9999999999" required
-                        class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                </div>
+            <div>
+                <label for="sku" class="block text-sm font-medium text-gray-700">SKU</label>
+                <input type="text" name="sku" id="sku" required
+                    class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+            </div>
 
-                <div>
-                    <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
-                    <input type="file" name="image" id="image" required
-                        class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                </div>
+            <div>
+                <label for="description" class="w-full block text-sm font-medium text-gray-700">Description</label>
+                <textarea type="text" name="description" id="description" required
+                    class=" mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 data-hs-textarea-auto-height"></textarea>
+            </div>
 
-                <div>
-                    <label for="stock" class="block text-sm font-medium text-gray-700">Minimum Stock</label>
-                    <input type="number" name="minimum_stock" id="stock" max="9999999999" required
-                        class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                </div>
+            <div>
+                <label for="purchase_price" class="block text-sm font-medium text-gray-700">Purchase Price</label>
+                <input type="number" name="purchase_price" id="purchase_price" max="9999999999" min="1" required
+                    class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+            </div>
 
-                <div class="flex justify-end space-x-2">
-                    <button type="button" @click="open = false"
-                        class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">
-                        Batal
-                    </button>
-                    <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded">
-                        Simpan
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div>
+                <label for="selling_price" class="block text-sm font-medium text-gray-700">Selling Price</label>
+                <input type="number" name="selling_price" id="selling_price" max="9999999999" min="1" required
+                    class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+                <input type="file" name="image" id="image" required
+                    class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="stock" class="block text-sm font-medium text-gray-700">Minimum Stock</label>
+                <input type="number" name="minimum_stock" id="stock" max="9999999999" min="1" required
+                    class="py-1 pl-1 mt-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+            </div>
+
+            <div class="flex justify-end space-x-2">
+                <button type="button" @click="open = false" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">
+                    Batal
+                </button>
+                <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded">
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
     </div>
 
     @if ($products->count())
@@ -194,7 +197,7 @@
                                 @foreach ($product->productAttribute as $pras)
                                     <p>{{ ucfirst($pras->name) . ', ' }}</p>
                                 @endforeach
-                                <a href="{{ route('productAttribute.index', $product->id) }}"
+                                <a href="{{ route('productAttribute.create', $product->id) }}"
                                     class="text-xs text-blue-600 ">+</a>
                             </td>
                             <td class="px-6 py-4">

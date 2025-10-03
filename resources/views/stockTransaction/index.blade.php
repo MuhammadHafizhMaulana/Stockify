@@ -57,7 +57,7 @@
 
                 <div>
                     <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
-                    <input type="number" name="quantity" id="quantity" required
+                    <input type="number" name="quantity" id="quantity" min="1" required
                         class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                 </div>
 

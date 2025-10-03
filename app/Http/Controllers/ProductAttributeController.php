@@ -27,9 +27,11 @@ class ProductAttributeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($productId)
     {
-        //
+        $product = Product::findOrFail($productId);
+
+        return view('productAttribute.create', compact('product'));
     }
 
     /**

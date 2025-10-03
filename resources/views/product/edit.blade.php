@@ -58,14 +58,14 @@
                 <div class="relative">
                     <input type="number"
                         class="peer py-2.5 sm:py-3 ps-3 block w-full bg-gray-100 border-transparent rounded-lg sm:number-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:number-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                        placeholder="Enter purchase price" name="purchase_price" max="9999999999"
+                        placeholder="Enter purchase price" name="purchase_price" max="9999999999" min="1"
                         value="{{ $product->purchase_price }}">
                 </div>
 
                 <div class="relative">
                     <input type="number"
                         class="peer py-2.5 sm:py-3 ps-3 block w-full bg-gray-100 border-transparent rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                        placeholder="Enter selling price" name="selling_price" max="9999999999"
+                        placeholder="Enter selling price" name="selling_price" max="9999999999" min="1"
                         value="{{ $product->selling_price }}">
                 </div>
 

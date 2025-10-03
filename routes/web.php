@@ -69,7 +69,11 @@ Route::middleware('auth')->group(function(){
     Route::resource('category', CategoryController::class);
     Route::resource('supplier', SupplierController::class);
     Route::get('/supplier/detail/{supplier}', [SupplierController::class, 'show'])->name('supplier.detail');
-    Route::resource('productAttribute', ProductAttributeController::class);
+
+    Route::get('/productAttribute/create/{product}', [ProductAttributeController::class, 'create'])
+    ->name('productAttribute.create');
+    Route::resource('productAttribute', ProductAttributeController::class)
+    ->except(['create']);
     Route::resource('stockTransaction', StockTransactionController::class);
     Route::patch('stockTransaction/{stockTransaction}/approve',[
         StockTransactionController::class, 'approve'

@@ -170,7 +170,7 @@ class UserController extends Controller
             'Mengubah data user'
         );
         return redirect()
-        ->route('user.index')
+        ->route('user.edit', $id)
         ->with('success', 'user updated successfully');
     }
 

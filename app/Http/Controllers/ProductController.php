@@ -227,6 +227,9 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image);
         }
 
+        // hapus attribute yang terkait
+        $product->productAttribute()->delete();
+
         // hapus product
         $this->productService->deleteProduct($id);
 

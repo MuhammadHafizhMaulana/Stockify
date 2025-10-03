@@ -24,4 +24,8 @@ class ProductAttributeRepository{
     public function delete(ProductAttribute $productAttribute){
         return $productAttribute->delete();
     }
+
+    public function findByProduct($product_id){
+        return ProductAttribute::where('product_id', $product_id)->first();
+    }
 }

@@ -112,13 +112,15 @@
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</button></a>
 
                             {{-- Form delete --}}
-                            <form action="{{ route('category.destroy', $category->id) }}" method="POST"
-                                class="inline button" onsubmit="return confirm('Yakin hapus category ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
-                            </form>
+                            @if ($category->product->isEmpty())
+                                <form action="{{ route('category.destroy', $category->id) }}" method="POST"
+                                    class="inline button" onsubmit="return confirm('Yakin hapus category ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

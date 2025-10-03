@@ -9,7 +9,8 @@
 
             {{-- Header + tombol Edit / Cancel --}}
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Profile</h2>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Profile {{ ucfirst($user->role) }}
+                </h2>
                 <button type="button" @click="editing = !editing"
                     class="px-3 py-1.5 text-sm font-medium rounded-md border border-transparent
                                bg-blue-600 text-white hover:bg-blue-700 focus:outline-none"
@@ -65,23 +66,25 @@
                 {{-- Tampilan Admin --}}
                 @if (Auth::user()->role === 'admin')
                     {{-- Role --}}
-                    <div>
-                        <label class="block mb-1 text-sm font-medium">Role</label>
-                        <select name="role" :disabled="!editing"
-                            class="w-full px-3 py-2 rounded-lg bg-gray-100 border-gray-200
+                    @if (Auth::user()->id != $user->id)
+                        <div>
+                            <label class="block mb-1 text-sm font-medium">Role</label>
+                            <select name="role" :disabled="!editing"
+                                class="w-full px-3 py-2 rounded-lg bg-gray-100 border-gray-200
                                    focus:border-blue-500 focus:ring-blue-500
                                    disabled:opacity-50 disabled:pointer-events-none
                                    dark:bg-neutral-700 dark:text-neutral-300">
-                            <option value="">-- Pilih Type --</option>
-                            <option value="staff" {{ old('role', $user->role) == 'staff' ? 'selected' : '' }}>Staff
-                                Gudang</option>
-                            <option value="manajer" {{ old('role', $user->role) == 'manajer' ? 'selected' : '' }}>
-                                Manajer
-                                Gudang</option>
-                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin
-                                Gudang</option>
-                        </select>
-                    </div>
+                                <option value="">-- Pilih Type --</option>
+                                <option value="staff" {{ old('role', $user->role) == 'staff' ? 'selected' : '' }}>Staff
+                                    Gudang</option>
+                                <option value="manajer" {{ old('role', $user->role) == 'manajer' ? 'selected' : '' }}>
+                                    Manajer
+                                    Gudang</option>
+                                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin
+                                    Gudang</option>
+                            </select>
+                        </div>
+                    @endif
                 @endif
 
                 {{-- Password hidden agar tidak berubah --}}

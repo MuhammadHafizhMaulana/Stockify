@@ -27,7 +27,8 @@
             {{-- Quantity --}}
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
-                <input type="number" name="quantity" value="{{ old('quantity', $stockTransaction->quantity) }}"
+                <input type="number" name="quantity" min="1"
+                    value="{{ old('quantity', $stockTransaction->quantity) }}"
                     class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200">
                 @error('quantity')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
