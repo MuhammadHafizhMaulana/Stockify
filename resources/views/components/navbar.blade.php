@@ -164,6 +164,10 @@
                 <a href="{{ route('user.edit', Auth::id()) }}"
                     class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white">Your
                     profile</a>
+                @if (Auth::user()->role === 'admin')
+                    <a href="{{ route('setting.index') }}"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white">Setting</a>
+                @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"

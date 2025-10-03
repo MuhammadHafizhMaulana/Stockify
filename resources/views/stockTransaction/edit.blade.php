@@ -58,7 +58,7 @@
                     <option value="">-- Pilih Status --</option>
                     <option value="pending"
                         {{ old('status', $stockTransaction->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="diterima"
+                    <option value="diterima" @if ($stockTransaction->type === 'keluar' && $stockTransaction->product->current_stock < $stockTransaction->quantity) disabled @endif
                         {{ old('status', $stockTransaction->status) == 'diterima' ? 'selected' : '' }}>Diterima
                     </option>
                     <option value="ditolak"
