@@ -2,8 +2,9 @@
 
 namespace App\Http\Services;
 
+use App\Models\Product;
+use App\Models\StockTransaction;
 use App\Http\Repositories\StockTransactionRepository;
-
 
 class StockTransactionService{
 
@@ -18,7 +19,14 @@ class StockTransactionService{
     }
 
     public function createStockTransaction(array $dataStockTransaction){
-        return $this->stockTransactionRepo->create($dataStockTransaction);
+        $product = Product::findOrFail($dataStockTransaction['product_id']);
+
+        if ($dataStockTransaction['type'] === 'keluar'){
+            if($product->current_stock <= 0 || $product->current_stock < $dataStockTransaction['quantity']) {
+                $dataStockTransaction['status'] = 'ditolak';
+            }
+        }
+        return StockTransaction::create($dataStockTransaction);
     }
 
     public function updateStockTransaction($id, array $dataStockTransaction){

@@ -47,7 +47,7 @@
                 {{-- Name --}}
                 <div>
                     <label class="block mb-1 text-sm font-medium">Title</label>
-                    <input type="text" name="title" value="{{ ucwords($setting->title) ?? 'default' }}"
+                    <input type="text" name="title" value="{{ ucwords($setting->title ?? 'default') }}"
                         :disabled="!editing"
                         class="w-full px-3 py-2 rounded-lg bg-gray-100 border-transparent
                                   focus:border-blue-500 focus:ring-blue-500
@@ -58,7 +58,7 @@
                 {{-- Email --}}
                 <div>
                     <label class="block mb-1 text-sm font-medium">Slogan</label>
-                    <input type="text" name="slogan" value="{{ ucfirst($setting->slogan) ?? 'default' }}"
+                    <input type="text" name="slogan" value="{{ ucfirst($setting->slogan ?? 'default') }}"
                         :disabled="!editing"
                         class="w-full px-3 py-2 rounded-lg bg-gray-100 border-transparent
                                   focus:border-blue-500 focus:ring-blue-500

@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function(){
 
     Route::resource('category', CategoryController::class);
     Route::resource('supplier', SupplierController::class);
+    Route::get('/supplier/detail/{supplier}', [SupplierController::class, 'show'])->name('supplier.detail');
     Route::resource('productAttribute', ProductAttributeController::class);
     Route::resource('stockTransaction', StockTransactionController::class);
     Route::patch('stockTransaction/{stockTransaction}/approve',[

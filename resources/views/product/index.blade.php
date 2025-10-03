@@ -203,13 +203,15 @@
                                     class="button text-xs text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
 
                                 {{-- Form delete --}}
-                                <form action="{{ route('product.destroy', $product->id) }}" method="POST"
-                                    class="inline button" onsubmit="return confirm('Yakin hapus product ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="text-white text-xs bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full px-5 py-2 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
-                                </form>
+                                @if ($product->current_stock <= 0)
+                                    <form action="{{ route('product.destroy', $product->id) }}" method="POST"
+                                        class="inline button" onsubmit="return confirm('Yakin hapus product ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="text-white text-xs bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
+                                    </form>
+                                @endif
 
                                 {{-- Link ke halaman detail --}}
                                 <a href="{{ route('product.show', $product->id) }}"

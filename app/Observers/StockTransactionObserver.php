@@ -27,6 +27,12 @@ class StockTransactionObserver
                 $product->increment('current_stock', $stockTransaction->quantity);
             }
             if($stockTransaction->type === 'keluar'){
+                // cek stock
+                if ($product->current_stock <= 0 || $product->current_stock < $stockTransaction->quantity){
+                    // otomatis tolak
+                    $stockTransaction->status = 'ditolak';
+                    $stockTransaction->save();
+                }
                 $product->decrement('current_stock', $stockTransaction->quantity);
             }
         }

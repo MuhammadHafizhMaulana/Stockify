@@ -65,7 +65,13 @@ class SupplierController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $supplier = $this->supplierService->getSupplierById($id);
+        $products = $supplier->product;
+        $category = Category::with('product')->findOrFail($id);
+
+        return view('supplier.detail', compact('supplier', 'products', 'category'));
+
+
     }
 
     /**
