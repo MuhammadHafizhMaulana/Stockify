@@ -112,7 +112,7 @@
 
 
                             {{-- Form delete --}}
-                            @if (Auth::user()->id != $user->id)
+                            @if (Auth::user()->id != $user->id && $user->stock_transaction_count == 0)
                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST"
                                     class="inline button" onsubmit="return confirm('Yakin hapus user ini?')">
                                     @csrf

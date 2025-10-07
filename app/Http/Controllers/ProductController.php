@@ -26,11 +26,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        $suppliers = Supplier::all();
-        $categories = Category::all();
-        $productAttributes = ProductAttribute::all();
-        return view('product.index', compact('products', 'suppliers', 'categories', 'productAttributes'));
+        // $products = Product::with('supplier', 'category');
+        // $suppliers = Supplier::all();
+        // $categories = Category::all();
+        // $productAttributes = ProductAttribute::all();
+
+        $products = Product::with(['supplier','category','productAttribute','stockTransaction'])->get();
+
+        // Kalau butuh dropdown supplier/category
+        $suppliers = Supplier::pluck('name', 'id');
+        $categories = Category::pluck('name', 'id');
+        return view('product.index', compact('products', 'suppliers', 'categories'));
     }
 
     /**

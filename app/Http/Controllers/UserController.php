@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ActivityLogService;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Services\UserService;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Services\ActivityLogService;
 
 class UserController extends Controller
 {
@@ -200,5 +201,32 @@ class UserController extends Controller
         return redirect()
         ->route('user.index')
         ->with('success', 'user deleted');
+    }
+
+    public function register(Request $request, ActivityLogService $logService){
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+
+        $data['role'] = 'staff';
+
+        $data['password'] = Hash::make($data['password']);
+
+        $user = $this->userService->createUser($data);
+
+        // log pendaftaran
+        $actor = 'User mendaftar sendiri';
+        $logService->log(
+            'register',
+            "{$actor}: Nama : {$user->name}, Email : {$user->email}, Role : {$user->role}"
+        );
+
+        // login otomatis setelah register
+        Auth::login($user);
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Akun berhasil dibuat dan Anda sudah login');
     }
 }

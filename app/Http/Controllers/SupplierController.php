@@ -23,8 +23,8 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = $this->supplierService->listSupplier();
-        $products = Product::all();
-        $categories = Category::all();
+        $products = Product::with(['supplier','category'])->get();
+        $categories = Category::pluck('name','id');
         return view('supplier.index', compact('suppliers','products', 'categories'));
     }
 

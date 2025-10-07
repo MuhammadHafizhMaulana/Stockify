@@ -1,6 +1,15 @@
 <x-layout>
     <div class="mt-10 x-data:mt-0 flex items-center justify-center bg-transparent bg-blend-screen dark:bg-transparent"
-        x-data="{ editing: false }">
+        x-data="{
+            editing: false,
+            preview: '{{ $user->image ? asset('storage/' . $user->image) : 'https://placehold.co/600x400.png' }}',
+            updatePreview(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.preview = URL.createObjectURL(file);
+                }
+            }
+        }">
         {{-- state Alpine --}}
 
         <div
@@ -11,7 +20,7 @@
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Profile {{ ucfirst($user->role) }}
                 </h2>
-                <button type="button" @click="editing = !editing"
+                <button type="button" @click="editing ? window.location.reload() : editing = true"
                     class="px-3 py-1.5 text-sm font-medium rounded-md border border-transparent
                                bg-blue-600 text-white hover:bg-blue-700 focus:outline-none"
                     x-text="editing ? 'Cancel' : 'Edit'">
@@ -24,24 +33,18 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Foto --}}
-                <div class="flex justify-center">
-                    <img src="{{ $user->image ? asset('storage/' . $user->image) : 'https://placehold.co/600x400.png' }}"
-                        alt="Profile Image"
-                        class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md hover:scale-105 transition-transform duration-300" />
+                {{-- Image --}}
+                <label :class="editing ? 'cursor-pointer hover:opacity-90' : 'opacity-50 cursor-not-allowed'"
+                    class="relative flex justify-center items-center" :style="!editing ? 'pointer-events: none;' : ''">
+                    <img :src="preview" alt="Profile Image"
+                        class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md transition-transform duration-300"
+                        :class="editing ? 'hover:scale-105' : ''" />
 
+                    <!-- Input file tetap ada tapi transparan -->
+                    <input id="image" type="file" name="image" class="absolute inset-0 opacity-0"
+                        :disabled="!editing" @change="updatePreview" />
+                </label>
 
-                </div>
-
-                {{-- Profile --}}
-                <div x-show="editing" x-transition>
-                    <label class="block mb-1 text-sm font-medium">Foto Profile</label>
-                    <input type="file" name="image"
-                        class="w-full px-3 py-2 rounded-lg bg-gray-100 border-transparent
-               focus:border-blue-500 focus:ring-blue-500
-               disabled:opacity-50 disabled:pointer-events-none
-               dark:bg-neutral-700 dark:text-neutral-300">
-                </div>
 
                 {{-- Name --}}
                 <div>
@@ -56,7 +59,7 @@
                 {{-- Email --}}
                 <div>
                     <label class="block mb-1 text-sm font-medium">Email</label>
-                    <input type="email" name="email" value="{{ $user->email }}" :disabled="!editing"
+                    <input type="email" name="email" value="{{ $user->email }}" disabled
                         class="w-full px-3 py-2 rounded-lg bg-gray-100 border-transparent
                                   focus:border-blue-500 focus:ring-blue-500
                                   disabled:opacity-50 disabled:pointer-events-none

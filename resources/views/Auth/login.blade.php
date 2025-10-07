@@ -38,7 +38,7 @@
                     class="block w-full p-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-900 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-blue-500 focus:border-blue-500"
                     name="password" required>
                 @error('password')
-                    <div class="error">{{ $message }}</div>
+                    <div class="error text-red-500 text-sm mt-1">{{ $message }}</div>
                 @enderror
             </div>
             <button type="submit"

@@ -8,7 +8,7 @@ use App\Models\User;
 class UserRepository{
 
     public function getAll(){
-        return User::all();
+        return User::withCount('stockTransaction')->get();
     }
 
     public function findById($id){

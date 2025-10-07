@@ -83,8 +83,8 @@ class StockifySeeder extends Seeder
         for ($i = 0; $i < 70; $i++) {
             $product = $products[array_rand($products)];
             $user = $users->random();
-            $type = $faker->randomElement(['in', 'out']);
-            $quantity = $faker->numberBetween(1, 20);
+            $type = $faker->randomElement(['masuk', 'keluar']);
+            $quantity = $faker->numberBetween(1, 200);
 
             // update stock otomatis
             if ($type === 'in') {

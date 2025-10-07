@@ -54,11 +54,11 @@ class DashboardController extends Controller
             $totalProduct = Product::count();
 
             $barangMasuk = StockTransaction::where('type', 'masuk')
-                ->whereDate('created_at', now()->subDay())
+                ->whereDate('created_at', now())
                 ->get();
 
             $barangKeluar = StockTransaction::where('type', 'keluar')
-                ->whereDate('created_at', now()->subDay())
+                ->whereDate('created_at', now())
                 ->get();
 
             $productLabels = Product::pluck('name');
@@ -73,12 +73,12 @@ class DashboardController extends Controller
 
             $barangMasuk = StockTransaction::where('type','masuk')
                 ->where('user_id', $user->id)
-                ->whereDate('created_at', now()->subDay())
+                ->whereDate('created_at', now())
                 ->get();
 
             $barangKeluar = StockTransaction::where('type','keluar')
                 ->where('user_id', $user->id)
-                ->whereDate('created_at', now()->subDay())
+                ->whereDate('created_at', now())
                 ->get();
 
             $dangerStock = Product::where('current_stock', '<=', DB::raw('minimum_stock + 20'))->get();

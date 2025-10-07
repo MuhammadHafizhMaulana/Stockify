@@ -51,27 +51,42 @@
                 @enderror
             </div>
 
-            {{-- Status --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                <select name="status"
-                    class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200">
-                    <option value="">-- Pilih Status --</option>
-                    <option value="pending"
-                        {{ old('status', $stockTransaction->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="diterima" @if ($stockTransaction->type === 'keluar' && $stockTransaction->product->current_stock < $stockTransaction->quantity) disabled @endif
-                        {{ old('status', $stockTransaction->status) == 'diterima' ? 'selected' : '' }}>Diterima
-                    </option>
-                    <option value="ditolak"
-                        {{ old('status', $stockTransaction->status) == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-                    <option value="dikeluarkan"
-                        {{ old('status', $stockTransaction->status) == 'dikeluarkan' ? 'selected' : '' }}>Dikeluarkan
-                    </option>
-                </select>
-                @error('status')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+            @if (Auth::user()->role === 'admin')
+                {{-- Status --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select name="status"
+                        class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        <option value="">-- Pilih Status --</option>
+                        <option value="pending"
+                            {{ old('status', $stockTransaction->status) == 'pending' ? 'selected' : '' }}>Pending
+                        </option>
+                        <option value="diterima" @if ($stockTransaction->type === 'keluar' && $stockTransaction->product->current_stock < $stockTransaction->quantity) disabled @endif
+                            {{ old('status', $stockTransaction->status) == 'diterima' ? 'selected' : '' }}>Diterima
+                        </option>
+                        <option value="ditolak"
+                            {{ old('status', $stockTransaction->status) == 'ditolak' ? 'selected' : '' }}>Ditolak
+                        </option>
+                        <option value="dikeluarkan"
+                            {{ old('status', $stockTransaction->status) == 'dikeluarkan' ? 'selected' : '' }}>
+                            Dikeluarkan
+                        </option>
+                    </select>
+                    @error('status')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
+
+            @if (Auth::user()->role === 'staff' || Auth::user()->role === 'manjer')
+                {{-- Status --}}
+                <div>
+                    <input type="hidden" value="pending" name="status">
+                    @error('status')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
 
             {{-- Notes --}}
             <div>

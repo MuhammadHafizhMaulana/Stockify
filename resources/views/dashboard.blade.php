@@ -181,9 +181,9 @@
             </div>
 
             {{-- Grafik Stok Barang --}}
-            <div class="bg-white p-4 rounded-xl shadow">
+            <div class="bg-white p-4 rounded-xl shadow w-full">
                 <h2 class="text-lg font-semibold mb-2">Grafik Stok Barang</h2>
-                <div class="h-64">
+                <div class="h-64 w-full">
                     {{-- Placeholder grafik pakai chart.js atau larapex --}}
                     <canvas id="stokChart"></canvas>
                 </div>

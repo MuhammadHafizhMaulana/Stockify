@@ -74,9 +74,9 @@
                 <select name="supplier_id" id="supplier" required
                     class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                     <option value="">-- Pilih Supplier --</option>
-                    @foreach ($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
-                            {{ ucwords($supplier->name) }}
+                    @foreach ($suppliers as $id => $name)
+                        <option value="{{ $id }}" {{ old('supplier_id') == $id ? 'selected' : '' }}>
+                            {{ ucwords($name) }}
                         </option>
                     @endforeach
                 </select>
@@ -87,10 +87,9 @@
                 <select name="category_id" id="category" required
                     class="mt-1 py-1 pl-1 w-full border-1 rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                     <option value="">-- Pilih Category --</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}"
-                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                            {{ ucwords($category->name) }}
+                    @foreach ($categories as $id => $category)
+                        <option value="{{ $id }}" {{ old('category_id') == $id ? 'selected' : '' }}>
+                            {{ ucwords($name) }}
                         </option>
                     @endforeach
                 </select>

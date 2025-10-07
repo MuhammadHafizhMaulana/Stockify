@@ -12,9 +12,10 @@ class ActivityLogService{
         $this->activityLogRepo = $activityLogRepo;
     }
 
-    public function log(string $action, ?string $description = null){
+    public function log(string $action, ?string $description = null, ?int $userId = null){
+        $authId = Auth::id();
         $this->activityLogRepo->create([
-            'user_id'       => Auth::id(),
+            'user_id'       => $authId ?: $userId,
             'action'        => $action,
             'description'   => $description,
             'ip_address'    => request()->ip(),

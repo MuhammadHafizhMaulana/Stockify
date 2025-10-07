@@ -28,4 +28,18 @@ class AuthService {
         return false;
     }
 
+    public function register(array $data){
+        // Hash password kalau ada
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        // Kalau user daftar sendiri, kasih role default
+        if (!Auth::check()) {
+            $data['role'] = 'staff';
+        }
+
+        return $this->userRepo->create($data);
+    }
+
 }
